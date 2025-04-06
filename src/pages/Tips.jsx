@@ -202,13 +202,34 @@ const Tips = () => {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
-        <LightbulbIcon sx={{ fontSize: 60, color: 'var(--primary-color)', mb: 2 }} />
-        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+    <Container maxWidth="lg">
+      <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom
+          sx={{ 
+            fontWeight: 700, 
+            color: 'var(--primary-dark)',
+            fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+            mb: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: { xs: 'center', md: 'flex-start' },
+            gap: 1
+          }}
+        >
+          <LightbulbIcon sx={{ color: 'var(--primary-color)', fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' } }} />
           Waste Reduction Tips & Resources
         </Typography>
-        <Typography variant="body1" sx={{ color: 'var(--text-secondary)', mb: 3, maxWidth: '800px', mx: 'auto' }}>
+        <Typography 
+          variant="subtitle1" 
+          sx={{ 
+            color: 'var(--text-secondary)', 
+            maxWidth: { md: '80%' },
+            fontSize: { xs: '0.9rem', sm: '1rem' }
+          }}
+        >
           Discover practical ways to reduce, reuse, recycle, and compost. Small changes in your daily habits can make a big difference for our environment.
         </Typography>
       </Box>

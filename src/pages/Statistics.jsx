@@ -283,13 +283,34 @@ const Statistics = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
-        <AssessmentIcon sx={{ fontSize: 60, color: 'var(--primary-color)', mb: 2 }} />
-        <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
+    <Container maxWidth="lg">
+      <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom
+          sx={{ 
+            fontWeight: 700, 
+            color: 'var(--primary-dark)',
+            fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+            mb: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: { xs: 'center', md: 'flex-start' },
+            gap: 1
+          }}
+        >
+          <AssessmentIcon sx={{ color: 'var(--primary-color)', fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' } }} />
           Waste Statistics
         </Typography>
-        <Typography variant="body1" sx={{ color: 'var(--text-secondary)', mb: 3 }}>
+        <Typography 
+          variant="subtitle1" 
+          sx={{ 
+            color: 'var(--text-secondary)', 
+            maxWidth: { md: '80%' },
+            fontSize: { xs: '0.9rem', sm: '1rem' }
+          }}
+        >
           Analyze your waste data to identify trends and areas for improvement.
         </Typography>
 

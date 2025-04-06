@@ -118,7 +118,7 @@ const Dashboard = () => {
     return (
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-          <CircularProgress />
+          <CircularProgress size={60} thickness={4} sx={{ color: 'var(--primary-color)' }} />
         </Box>
       </Container>
     );
@@ -127,8 +127,10 @@ const Dashboard = () => {
   if (error) {
     return (
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Paper sx={{ p: 3, textAlign: 'center' }}>
-          <Typography color="error">{error}</Typography>
+        <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#FFF3F3', borderRadius: 'var(--border-radius)', boxShadow: 'var(--box-shadow)' }}>
+          <Typography color="error" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <DeleteIcon fontSize="small" /> {error}
+          </Typography>
         </Paper>
       </Container>
     );
@@ -136,16 +138,35 @@ const Dashboard = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-        Waste Management Dashboard
-      </Typography>
-      
-      <Typography variant="body1" paragraph sx={{ mb: 4, color: 'var(--text-secondary)' }}>
-        Track and monitor your waste management efforts. See your impact and find ways to improve.
-      </Typography>
+      <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom
+          sx={{ 
+            fontWeight: 700, 
+            color: 'var(--primary-dark)',
+            fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+            mb: 1
+          }}
+        >
+          Waste Management Dashboard
+        </Typography>
+        <Typography 
+          variant="subtitle1" 
+          gutterBottom
+          sx={{ 
+            color: 'var(--text-secondary)', 
+            maxWidth: { md: '80%' },
+            fontSize: { xs: '0.9rem', sm: '1rem' }
+          }}
+        >
+          Track and manage your waste disposal efficiently for a cleaner, more sustainable environment
+        </Typography>
+      </Box>
 
       {/* Summary Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Grid container spacing={3} sx={{ mb: 4, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {categorySummary.map((category, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card 
@@ -176,10 +197,33 @@ const Dashboard = () => {
       </Grid>
 
       {/* Charts and Recent Entries */}
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3, height: '100%' }}>
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+          <Paper 
+                elevation={2}
+                sx={{ 
+                  p: { xs: 2, sm: 3 }, 
+                  height: '100%',
+                  borderRadius: 'var(--border-radius)',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
+                  }
+                }}
+              >
+            <Typography 
+              variant="h6" 
+              gutterBottom 
+              sx={{ 
+                fontWeight: 600, 
+                color: 'var(--primary-dark)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 2
+              }}
+            >
               Waste Distribution
             </Typography>
             <Box height={300} display="flex" justifyContent="center" alignItems="center">
@@ -189,58 +233,115 @@ const Dashboard = () => {
         </Grid>
         
         <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 3, height: '100%' }}>
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-              Recent Waste Entries
+          <Paper 
+                elevation={2}
+                sx={{ 
+                  p: { xs: 2, sm: 3 }, 
+                  height: '100%',
+                  borderRadius: 'var(--border-radius)',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 8px 16px rgba(0,0,0,0.1)'
+                  }
+                }}
+              >
+            <Typography 
+              variant="h6" 
+              gutterBottom 
+              sx={{ 
+                fontWeight: 600, 
+                color: 'var(--primary-dark)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 2
+              }}
+            >
+              <LocalDrinkIcon /> Recent Waste Entries
             </Typography>
             {wasteData?.recentEntries.length > 0 ? (
-              wasteData.recentEntries.map((entry) => (
-                <Box 
-                  key={entry.id} 
-                  sx={{ 
-                    p: 2, 
-                    mb: 2, 
-                    borderRadius: 1, 
-                    backgroundColor: entry.category === 'Recycling' 
-                      ? '#E8F5E9' 
-                      : entry.category === 'Compost' 
-                        ? '#F1F8E9' 
-                        : '#FFEBEE',
-                  }}
-                >
-                  <Grid container alignItems="center">
-                    <Grid item xs={8}>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                        {entry.type}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {entry.date}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={4} textAlign="right">
-                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                        {entry.weight} kg
-                      </Typography>
-                      <Typography variant="caption" sx={{ 
-                        display: 'inline-block',
-                        px: 1,
-                        py: 0.5,
-                        borderRadius: 1,
-                        backgroundColor: entry.category === 'Recycling' 
-                          ? '#4CAF50' 
-                          : entry.category === 'Compost' 
-                            ? '#8BC34A' 
-                            : '#F44336',
-                        color: 'white',
-                      }}>
-                        {entry.category}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Box>
-              ))
+              wasteData.recentEntries.map((entry) => {
+                // Determine icon and color based on category
+                let icon = <DeleteIcon />;
+                let color = '#F44336';
+                let bgColor = '#FFEBEE';
+                
+                if (entry.category === 'Recycling') {
+                  icon = <RecyclingIcon />;
+                  color = '#4CAF50';
+                  bgColor = '#E8F5E9';
+                } else if (entry.category === 'Compost') {
+                  icon = <CompostIcon />;
+                  color = '#FF9800';
+                  bgColor = '#FFF8E1';
+                }
+                
+                return (
+                  <Card 
+                    key={entry.id} 
+                    sx={{ 
+                      mb: 2, 
+                      borderRadius: 'var(--border-radius)',
+                      boxShadow: 'none',
+                      border: '1px solid #eee',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        boxShadow: 'var(--box-shadow)',
+                        borderColor: 'transparent'
+                      }
+                    }}
+                  >
+                    <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+                      <Grid container spacing={2} alignItems="center">
+                        <Grid item xs="auto">
+                          <Box 
+                            sx={{ 
+                              width: 40, 
+                              height: 40, 
+                              borderRadius: '50%', 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              justifyContent: 'center',
+                              backgroundColor: bgColor,
+                              color: color
+                            }}
+                          >
+                            {icon}
+                          </Box>
+                        </Grid>
+                        <Grid item xs>
+                          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>{entry.type}</Typography>
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
+                              {entry.date}
+                            </Typography>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                color: 'white',
+                                backgroundColor: color,
+                                px: 1,
+                                py: 0.5,
+                                borderRadius: 'var(--border-radius)',
+                                fontSize: '0.75rem',
+                                fontWeight: 600
+                              }}
+                            >
+                              {entry.weight} kg
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                );
+              })
             ) : (
-              <Typography>No recent entries found.</Typography>
+              <Box sx={{ p: 3, textAlign: 'center', color: 'var(--text-secondary)' }}>
+                <Typography>No recent entries found.</Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>Start logging your waste to see entries here.</Typography>
+              </Box>
             )}
           </Paper>
         </Grid>
